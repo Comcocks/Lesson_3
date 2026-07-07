@@ -9,10 +9,9 @@ from fully_connected_basics.trainer import train_model
 from fully_connected_basics.utils import count_parameters
 
 
-def run_experiment(config, get_loaders = get_mnist_loaders):
-    name = "mnist" if get_loaders == get_mnist_loaders() else "cifar"
+def run_experiment(config, loader = "mnist"):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    train_loader, test_loader = get_loaders(batch_size=64)
+    train_loader, test_loader = get_mnist_loaders(batch_size=64) if loader == "mnist" else get_cifar_loaders(batch_size=64)
     results = {}
 
     for n, l in config.items():
@@ -21,10 +20,10 @@ def run_experiment(config, get_loaders = get_mnist_loaders):
         params = count_parameters(model)
 
         start = time.time()
-        stats = train_model(model, train_loader, test_loader, epochs=10, device=str(device))
+        stats = train_model(model, train_loader, test_loader, epochs=5, device=str(device))
         end = time.time() - start
 
-        results[f"{n}_{name}"] = {
+        results[f"{n}_{loader}"] = {
             "history": stats,
             "params": params,
             "time": end

@@ -1,14 +1,5 @@
-import os
-import time
-
 import numpy
-import torch
 from matplotlib import pyplot as plt
-
-from fully_connected_basics.datasets import get_mnist_loaders, get_cifar_loaders
-from fully_connected_basics.models import FullyConnectedModel
-from fully_connected_basics.trainer import train_model
-from fully_connected_basics.utils import count_parameters
 from homework.experiment_utils import run_experiment, save_plot
 
 configs = {
@@ -41,8 +32,6 @@ def plot_heatmap(results):
     fig, ax = plt.subplots(figsize=(10, 2))
     data = numpy.array(accs).reshape(1, -1)
 
-    im = ax.imshow(data, cmap="YlGnBu")
-
     ax.set_xticks(numpy.arange(len(models)))
     ax.set_xticklabels(models, rotation=45, ha="right")
     ax.set_yticks([0])
@@ -53,7 +42,7 @@ def plot_heatmap(results):
             text = ax.text(j, i, f"{data[i, j]:.4f}",
                            ha="center", va="center", color="black")
 
-    plt.title("Test Accuracy Heatmap (Width Variants)")
+    plt.title("Heatmap")
     plt.tight_layout()
 
     plt.savefig(f"plots/width_heatmap.png")

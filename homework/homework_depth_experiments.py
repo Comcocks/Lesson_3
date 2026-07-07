@@ -2,7 +2,7 @@ from fully_connected_basics.datasets import get_mnist_loaders, get_cifar_loaders
 from homework.experiment_utils import run_experiment, save_plot
 
 configs_dropouts = {
-    "5_layers_dropout)": [
+    "5_layers_dropout": [
             {"type": "linear", "size": 1024},
             {"type": "dropout", "rate": 0.2},
             {"type": "linear", "size": 512},
@@ -14,7 +14,7 @@ configs_dropouts = {
             {"type": "linear", "size": 64}
         ],
 
-    "5_layers_batchnorm)": [
+    "5_layers_batchnorm": [
             {"type": "linear", "size": 1024},
             {"type": "batch_norm"},
             {"type": "linear", "size": 512},
@@ -61,8 +61,9 @@ configs_basic = {
 
 
 if __name__ == "__main__":
-    results_mnist = run_experiment(configs_basic, get_loaders = get_mnist_loaders)
-    results_cifar = run_experiment(configs_basic, get_loaders = get_mnist_loaders)
+    results_mnist = run_experiment(configs_basic, loader="mnist")
+    save_plot(results_mnist)
+#    results_cifar = run_experiment(configs_basic, loader="cifar")
+#    save_plot(results_cifar)
     results_dropout = run_experiment(configs_dropouts)
-
-    save_plot(results_mnist + results_cifar + results_dropout)
+    save_plot(results_dropout)
