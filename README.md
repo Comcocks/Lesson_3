@@ -3,11 +3,20 @@
 
 ## Задание 1: Эксперименты с глубиной сети
 ### 1.1 Сравнение моделей разной глубины
-![image](homework/plots/1_layer_mnist)
-![image](homework/plots/7_layers_mnist)
+Время обченения растёт с увеличением количества слоёв, но нелинейно. Между пятью и семью слоями разница во времени уже небольшая.
+![image](homework/plots/1_layer_mnist.png)
+![image](homework/plots/7_layers_mnist.png)
+
+Время обченения растёт с увеличением количества слоёв, но нелинейно.
 ### 1.2 Анализ переобучения
-![image](homework/plots/5_layers_mnist)
-![image](homework/plots/5_layer_batchnorm_mnist)
+На 1-5 слоях переобучение практически незаметно, но на седьми слоях **Train Acc** превышает **Test Acc**.
+
+Использование **Dropout и BatchNorm** влияет на время обучения, на 5ти слоях dropout увеличивает его, а batchnorm уменьшает.
+
+3–5 слоёв	дают компромисс между точностью, переобучением и затратами времени.
+![image](homework/plots/5_layers_mnist.png)
+![image](homework/plots/5_layers_batchnorm_mnist.png)
+![image](homework/plots/5_layers_dropout_mnist.png)
 
 ## Задание 2: Эксперименты с шириной сети
 ### 2.1 Сравнение моделей разной ширины
