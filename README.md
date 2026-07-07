@@ -3,8 +3,11 @@
 
 ## Задание 1: Эксперименты с глубиной сети
 ### 1.1 Сравнение моделей разной глубины
-![image](homework/plots/)
+![image](homework/plots/1_layer_mnist)
+![image](homework/plots/7_layers_mnist)
 ### 1.2 Анализ переобучения
+![image](homework/plots/5_layers_mnist)
+![image](homework/plots/5_layer_batchnorm_mnist)
 
 ## Задание 2: Эксперименты с шириной сети
 ### 2.1 Сравнение моделей разной ширины
