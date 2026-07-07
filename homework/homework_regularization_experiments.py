@@ -6,20 +6,34 @@ from fully_connected_basics.trainer import train_model
 from fully_connected_basics.utils import count_parameters
 
 
-def extract_weights(model):
-    """Извлекает веса линейных слоев для анализа"""
-    weights = []
-    for m in model.modules():
-        if isinstance(m, torch.nn.Linear):
-            weights.append(m.weight)
-    return weights
+configs = {
+        "tight": [
+            {"type": "linear", "size": 64}, {"type": "relu"},
+            {"type": "linear", "size": 32}, {"type": "relu"},
+            {"type": "linear", "size": 16}, {"type": "relu"},
+        ],
+        "normal": [
+            {"type": "linear", "size": 256}, {"type": "relu"},
+            {"type": "linear", "size": 128}, {"type": "relu"},
+            {"type": "linear", "size": 64}, {"type": "relu"},
+        ],
+        "big": [
+            {"type": "linear", "size": 1024}, {"type": "relu"},
+            {"type": "linear", "size": 512}, {"type": "relu"},
+            {"type": "linear", "size": 256}, {"type": "relu"},
+        ],
+        "large": [
+            {"type": "linear", "size": 2048}, {"type": "relu"},
+            {"type": "linear", "size": 1024}, {"type": "relu"},
+            {"type": "linear", "size": 512}, {"type": "relu"},
+        ],
+    }
 
 
-def run_regularization_experiments(output_dir):
+def regularization_experiments():
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     train_loader, test_loader = get_mnist_loaders(batch_size=64)
-    configs = get_regularization_configs()
     results = {}
 
     for name, layers in configs.items():
@@ -33,7 +47,10 @@ def run_regularization_experiments(output_dir):
         history = train_model(model, train_loader, test_loader, epochs=10, device=str(device), weight_decay=weight_decay)
         duration = time.time() - start
 
-        weights = extract_weights(model)
+        weights = []
+        for m in model.modules():
+            if isinstance(m, torch.nn.Linear):
+                weights.append(m.weight)
 
         results[name] = {
             "history": history,
@@ -43,3 +60,7 @@ def run_regularization_experiments(output_dir):
         }
 
     return results
+
+
+if __name__ == "__main__":
+    results = regularization_experiments()
