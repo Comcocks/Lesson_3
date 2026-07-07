@@ -45,3 +45,6 @@
 ![image](homework/plots/batchnorm.png)
 ![image](homework/plots/dropout_batchnorm.png)
 ### 3.2 Адаптивная регуляризация
+Гистограмы, показывающие влияние на разные слои, находятся в папке homework/histograms
+
+Адаптивный **dropout** наиболее эффективен на поздних стадиях, хорошо борется с переобучением. **Batchnorm с разным momentum** медленно адаптирует статистики. 
