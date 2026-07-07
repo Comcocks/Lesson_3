@@ -32,6 +32,7 @@ def plot_heatmap(results):
     fig, ax = plt.subplots(figsize=(10, 2))
     data = numpy.array(accs).reshape(1, -1)
 
+    ax.imshow(data, cmap="YlGnBu")
     ax.set_xticks(numpy.arange(len(models)))
     ax.set_xticklabels(models, rotation=45, ha="right")
     ax.set_yticks([0])
@@ -39,8 +40,7 @@ def plot_heatmap(results):
 
     for i in range(1):
         for j in range(len(models)):
-            text = ax.text(j, i, f"{data[i, j]:.4f}",
-                           ha="center", va="center", color="black")
+            ax.text(j, i, f"{data[i, j]:.4f}", ha="center", va="center", color="black")
 
     plt.title("Heatmap")
     plt.tight_layout()
